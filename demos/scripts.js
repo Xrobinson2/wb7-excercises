@@ -4,7 +4,25 @@
 const apiBaseUrl = "https://www.themealdb.com/api/json/v1/1/filter.php?c="
 
 
-window.onload = function(){
+let category
+
+
+window.onload = function(){ 
+
+let urlParams = new URLSearchParams(location.search)
+console.log(urlParams)
+
+for(let urlParam of urlParams){
+    console.log(urlParam)
+}
+
+if( urlParams.has ("category") === true){
+
+    category = urlParams.get("category")
+    console.log(category)
+}
+
+
     const getresultsButton = document.getElementById("getResultsButton")
     getresultsButton.onclick = onGetResultsButtonClick
 }
@@ -12,10 +30,14 @@ window.onload = function(){
 function onGetResultsButtonClick(){
     console.log("clicked")
 
-    const categoryInput = document.getElementById("categoryInput")
+    const category = document.getElementById("categoryInput")
+    const categoryHeader = document.getElementById("categoryHeader")
     const resultsOutput = document.getElementById("resultsOutput")
 
-    let actualUrl = apiBaseUrl + categoryInput.value 
+categoryHeader.innerHTML = "Meals in Category" + category
+
+    
+    let actualUrl = apiBaseUrl + category
 
     console.log ("URL: " + actualUrl)
 
